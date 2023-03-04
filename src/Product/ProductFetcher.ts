@@ -8,13 +8,14 @@ interface ProductInterface
 export default class ProductFetcher
 {
     constructor(
-       private httpClient: HttpClient
+       private httpClient: HttpClient,
+       private productApiUrl: string,
     ) {}
 
     getProducts = async(): Promise<ProductInterface[]> =>
     {
         const products = await this.httpClient.get(
-            'http://product_api:3001/products',
+            `${this.productApiUrl}/products`,
             {},
         )
 

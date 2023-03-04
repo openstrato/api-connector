@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.apiConnector = void 0;
 const HttpClient_1 = require("./Common/HttpClient");
 const ProductFetcher_1 = require("./Product/ProductFetcher");
-function apiConnector() {
+function apiConnector(params) {
     const httpClient = new HttpClient_1.default();
-    const productFetcher = new ProductFetcher_1.default(httpClient);
+    const productFetcher = new ProductFetcher_1.default(httpClient, params.productApiUrl);
     const connector = {
         product: productFetcher,
     };

@@ -10,10 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 class ProductFetcher {
-    constructor(httpClient) {
+    constructor(httpClient, productApiUrl) {
         this.httpClient = httpClient;
+        this.productApiUrl = productApiUrl;
         this.getProducts = () => __awaiter(this, void 0, void 0, function* () {
-            const products = yield this.httpClient.get('http://product_api:3001/products', {});
+            const products = yield this.httpClient.get(`${this.productApiUrl}/products`, {});
             return products;
         });
     }

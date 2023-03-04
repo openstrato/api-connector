@@ -4,7 +4,8 @@ interface ProductInterface {
 }
 export default class ProductFetcher {
     private httpClient;
-    constructor(httpClient: HttpClient);
+    private productApiUrl;
+    constructor(httpClient: HttpClient, productApiUrl: string);
     getProducts: () => Promise<ProductInterface[]>;
 }
 export {};

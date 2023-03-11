@@ -1,13 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.apiConnector = void 0;
+const CartService_1 = require("./Cart/CartService");
 const HttpClient_1 = require("./Common/HttpClient");
-const ProductFetcher_1 = require("./Product/ProductFetcher");
+const OrderService_1 = require("./Order/OrderService");
+const ProductService_1 = require("./Product/ProductService");
 function apiConnector(params) {
     const httpClient = new HttpClient_1.default();
-    const productFetcher = new ProductFetcher_1.default(httpClient, params.productApiUrl);
+    const productService = new ProductService_1.ProductService(params, httpClient);
+    const cartService = new CartService_1.CartService(params, httpClient);
+    const orderService = new OrderService_1.OrderService(params, httpClient);
     const connector = {
-        product: productFetcher,
+        products: productService,
+        carts: cartService,
+        orders: orderService,
     };
     return connector;
 }

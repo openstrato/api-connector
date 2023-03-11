@@ -9,23 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductFetcher = void 0;
-class ProductFetcher {
-    constructor(httpClient, productApiUrl) {
+exports.BaseService = void 0;
+class BaseService {
+    constructor(params, httpClient) {
+        this.params = params;
         this.httpClient = httpClient;
-        this.productApiUrl = productApiUrl;
+        this.baseUrl = '';
+        this.requestParams = {
+            lang: this.params.lang
+        };
         this.find = () => __awaiter(this, void 0, void 0, function* () {
-            const products = yield this.httpClient.get(`${this.productApiUrl}/products`, {
-                lang: global.lang
-            });
-            return products;
+            const entities = yield this.httpClient.get(this.baseUrl, this.requestParams, {});
+            return entities;
         });
-        this.findById = (productId) => __awaiter(this, void 0, void 0, function* () {
-            const product = yield this.httpClient.get(`${this.productApiUrl}/products/${productId}`, {
-                lang: global.lang
-            });
-            return product;
+        this.findById = (entityId) => __awaiter(this, void 0, void 0, function* () {
+            const entity = yield this.httpClient.get(`${this.baseUrl}/${entityId}`, this.requestParams, {});
+            return entity;
         });
     }
 }
-exports.ProductFetcher = ProductFetcher;
+exports.BaseService = BaseService;

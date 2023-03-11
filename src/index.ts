@@ -1,20 +1,32 @@
+import { CartService } from "./Cart/CartService";
 import HttpClient from "./Common/HttpClient";
-import ProductFetcher from "./Product/ProductFetcher";
+import { OrderService } from "./Order/OrderService";
+import {ProductService} from "./Product/ProductService";
 
-interface ParamsInterface
+export interface ApiParamsInterface
 {
-    productApiUrl: string
+    lang: string,
+    productApiUrl: string,
+    cartApiUrl: string,
+    orderApiUrl: string,
+    extensionApiUrl: string,
 }
 
-export function apiConnector(params)
+export function apiConnector(params: ApiParamsInterface)
 {
     const httpClient = new HttpClient();
 
-    const productFetcher = new ProductFetcher(httpClient, params.productApiUrl);
+    const productService = new ProductService(params, httpClient);
+    const cartService = new CartService(params, httpClient);
+    const orderService = new OrderService(params, httpClient);
 
     const connector = {
-        product: productFetcher,
+        products: productService,
+        carts: cartService,
+        orders: orderService,
     }
 
     return connector;
 }
+
+

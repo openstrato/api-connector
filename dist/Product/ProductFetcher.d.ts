@@ -1,11 +1,11 @@
 import HttpClient from "../Common/HttpClient";
-interface ProductInterface {
+export interface ProductInterface {
     name: string;
 }
-export default class ProductFetcher {
+export declare class ProductFetcher {
     private httpClient;
     private productApiUrl;
     constructor(httpClient: HttpClient, productApiUrl: string);
-    getProducts: () => Promise<ProductInterface[]>;
+    find: () => Promise<ProductInterface[]>;
+    findById: (productId: string) => Promise<ProductInterface>;
 }
-export {};

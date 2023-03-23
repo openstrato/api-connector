@@ -3,6 +3,7 @@ import { OrderService } from "./Order/OrderService";
 import { ProductService } from "./Product/ProductService";
 export interface ApiParamsInterface {
     lang: string;
+    currency: string;
     productApiUrl: string;
     cartApiUrl: string;
     orderApiUrl: string;

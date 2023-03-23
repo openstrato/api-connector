@@ -13,13 +13,22 @@ export default class HttpClient
         return response.data;
     }
 
-    async post(url: string, data, headers = {})
+    async post(url: string, data, params, headers = {})
     {
-        const bodyData: URLSearchParams = new URLSearchParams(data);
-        const response: AxiosResponse = await axios.post(url, bodyData.toString(), {
-            headers: headers,
-        })
-        return response.data;
+        try {
+            const response: AxiosResponse = await axios.post(
+                url,
+                data,
+                {
+                    headers: headers,
+                    params: params,
+                }
+            )
+
+            return response.data;
+        } catch (error) {            
+            throw new Error(error.response?.data ?? error);
+        }
     }
 
     generateUrl(url: string, params): string

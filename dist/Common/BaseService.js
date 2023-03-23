@@ -18,12 +18,21 @@ class BaseService {
         this.requestParams = {
             lang: this.params.lang
         };
+        this.requestHeaders = {};
         this.find = () => __awaiter(this, void 0, void 0, function* () {
-            const entities = yield this.httpClient.get(this.baseUrl, this.requestParams, {});
+            const entities = this.httpClient.get(this.baseUrl, this.requestParams, {});
             return entities;
         });
         this.findById = (entityId) => __awaiter(this, void 0, void 0, function* () {
-            const entity = yield this.httpClient.get(`${this.baseUrl}/${entityId}`, this.requestParams, {});
+            const entity = this.httpClient.get(`${this.baseUrl}/${entityId}`, this.requestParams, {});
+            return entity;
+        });
+        this.update = (entityId, updateData) => __awaiter(this, void 0, void 0, function* () {
+            const entity = this.httpClient.post(`${this.baseUrl}/${entityId}`, updateData, this.requestParams, {});
+            return entity;
+        });
+        this.create = (createData) => __awaiter(this, void 0, void 0, function* () {
+            const entity = this.httpClient.post(`${this.baseUrl}`, createData, this.requestParams, {});
             return entity;
         });
     }

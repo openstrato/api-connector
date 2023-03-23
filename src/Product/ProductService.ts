@@ -2,7 +2,14 @@ import { BaseService } from "../Common/BaseService";
 
 export interface ProductInterface
 {
-    name: string
+    id: string;
+    name: string;
+    variants: VariantInterface[];
+}
+
+export interface VariantInterface
+{
+    id: string;
 }
 
 export class ProductService extends BaseService<ProductInterface>

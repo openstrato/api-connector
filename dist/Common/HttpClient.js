@@ -21,13 +21,19 @@ class HttpClient {
             return response.data;
         });
     }
-    post(url, data, headers = {}) {
+    post(url, data, params, headers = {}) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
-            const bodyData = new url_1.URLSearchParams(data);
-            const response = yield axios_1.default.post(url, bodyData.toString(), {
-                headers: headers,
-            });
-            return response.data;
+            try {
+                const response = yield axios_1.default.post(url, data, {
+                    headers: headers,
+                    params: params,
+                });
+                return response.data;
+            }
+            catch (error) {
+                throw new Error((_b = (_a = error.response) === null || _a === void 0 ? void 0 : _a.data) !== null && _b !== void 0 ? _b : error);
+            }
         });
     }
     generateUrl(url, params) {

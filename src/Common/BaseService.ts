@@ -1,7 +1,7 @@
 import { ApiParamsInterface } from "..";
 import HttpClient from "./HttpClient";
 
-export class BaseService<T>
+export class BaseService<T, createT = null, updateT = null>
 {
     protected baseUrl = '';
 
@@ -9,13 +9,15 @@ export class BaseService<T>
         lang: this.params.lang
     }
 
+    protected requestHeaders: any = {}
+
     constructor(
         protected params: ApiParamsInterface,
         protected httpClient: HttpClient
     ) {}
 
     find = async(): Promise<T[]> => {
-        const entities = await this.httpClient.get(
+        const entities = this.httpClient.get(
             this.baseUrl,
             this.requestParams,
             {}
@@ -25,8 +27,30 @@ export class BaseService<T>
     }
 
     findById = async(entityId: string): Promise<T> => {
-        const entity = await this.httpClient.get(
+        const entity = this.httpClient.get(
             `${this.baseUrl}/${entityId}`,
+            this.requestParams,
+            {}
+        )
+
+        return entity;
+    }
+
+    update = async(entityId: string, updateData: updateT): Promise<T> => {
+        const entity = this.httpClient.post(
+            `${this.baseUrl}/${entityId}`,
+            updateData,
+            this.requestParams,
+            {}
+        )
+
+        return entity;
+    }
+
+    create = async(createData: createT): Promise<T> => {
+        const entity = this.httpClient.post(
+            `${this.baseUrl}`,
+            createData,
             this.requestParams,
             {}
         )

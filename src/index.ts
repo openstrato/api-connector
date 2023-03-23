@@ -6,6 +6,7 @@ import {ProductService} from "./Product/ProductService";
 export interface ApiParamsInterface
 {
     lang: string,
+    currency: string,
     productApiUrl: string,
     cartApiUrl: string,
     orderApiUrl: string,
@@ -19,6 +20,11 @@ export function apiConnector(params: ApiParamsInterface)
     const productService = new ProductService(params, httpClient);
     const cartService = new CartService(params, httpClient);
     const orderService = new OrderService(params, httpClient);
+
+    //TODO:
+    // - support stripe checkout page
+    // - handle payment methods
+    // - ability to add a payment (other than stripe)
 
     const connector = {
         products: productService,

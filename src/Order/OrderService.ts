@@ -11,8 +11,15 @@ export interface OrderInterface
 {
     id: string;
     cartId: string;
+    availableMethods: PaymentMethodInterface[];
     payments: OrderPaymentInterface[];
     shippingAddress: AddressInterface;
+}
+
+export interface PaymentMethodInterface
+{
+    methodId: string;
+    methodCode: string;
 }
 
 export interface OrderPaymentInterface
@@ -37,4 +44,16 @@ export interface AddressInterface
 export class OrderService extends BaseService<OrderInterface, OrderCreateInterface>
 {
     protected baseUrl: string = `${this.params.orderApiUrl}/orders`;
+
+    confirm = async(orderId: string): Promise<OrderInterface> =>
+    {
+        const order = await this.httpClient.post(
+            `${this.baseUrl}/${orderId}/confirm`,
+            {},
+            this.requestParams,
+            this.requestHeaders
+        );
+
+        return order;
+    }
 }

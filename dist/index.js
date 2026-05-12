@@ -10,8 +10,6 @@ function apiConnector(params) {
     const productService = new ProductService_1.ProductService(params, httpClient);
     const cartService = new CartService_1.CartService(params, httpClient);
     const orderService = new OrderService_1.OrderService(params, httpClient);
-    //TODO:
-    // - support stripe checkout page
     // - handle payment methods
     // - ability to add a payment (other than stripe)
     const connector = {

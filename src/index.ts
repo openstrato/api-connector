@@ -21,8 +21,6 @@ export function apiConnector(params: ApiParamsInterface)
     const cartService = new CartService(params, httpClient);
     const orderService = new OrderService(params, httpClient);
 
-    //TODO:
-    // - support stripe checkout page
     // - handle payment methods
     // - ability to add a payment (other than stripe)
 

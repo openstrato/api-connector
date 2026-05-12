@@ -7,8 +7,13 @@ export interface OrderCreateInterface {
 export interface OrderInterface {
     id: string;
     cartId: string;
+    availableMethods: PaymentMethodInterface[];
     payments: OrderPaymentInterface[];
     shippingAddress: AddressInterface;
+}
+export interface PaymentMethodInterface {
+    methodId: string;
+    methodCode: string;
 }
 export interface OrderPaymentInterface {
     amount: number;
@@ -27,4 +32,5 @@ export interface AddressInterface {
 }
 export declare class OrderService extends BaseService<OrderInterface, OrderCreateInterface> {
     protected baseUrl: string;
+    confirm: (orderId: string) => Promise<OrderInterface>;
 }
